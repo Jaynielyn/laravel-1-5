@@ -11,19 +11,22 @@ class Author extends Model
 
     protected $fillable = ['name', 'age', 'nationality'];
 
-    // 追記：ここから
+    public static $rules = array(
+        'name' => 'required',
+        'age' => 'integer|min:0|max:150',
+        'nationality' => 'required'
+    );
     public function getDetail()
     {
         $txt = 'ID:' . $this->id . ' ' . $this->name . '(' . $this->age .  '才' . ') ' . $this->nationality;
         return $txt;
     }
-    // 追記：ここまで
-
-    public function book() {
+    public function book()
+    {
         return $this->hasOne('App\Models\Book');
     }
-
-    public function books() {
+    public function books()
+    {
         return $this->hasMany('App\Models\Book');
     }
 }
